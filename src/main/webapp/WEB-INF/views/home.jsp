@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -30,6 +28,7 @@
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/font-awesome.min.css?1422529194" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/material-design-iconic-font.min.css?1421434286" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/libs/bootstrap-multiselect/bootstrap-multiselect.css?1419109895" />
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/animsition/css/animsition.min.css" />
 		<!-- END STYLESHEETS -->
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -81,79 +80,77 @@
 					<div class="row">
 						<div class="col-sm-9">
 							<div class="card card-underline">
-										<div class="card-head">
-											<ul class="nav nav-tabs pull-right" data-toggle="tabs">
-												<li class="active"><a href="#web1">newest</a></li>
-												<li><a href="#web2">featured</a></li>
-												<li><a href="#web3">frequent</a></li>
-												<li><a href="#web4">votes</a></li>
-												<li><a href="#web5">active</a></li>
-											</ul>
-											<header>Top Questions</header>
-										</div>
-										<div class="card-body tab-content">
-											<div class="tab-pane active" id="web1">
-												<div class="row">
-													<div class="">
-														<!-- BEGIN PAGE HEADER -->
-														<div class="margin-bottom-xxl">
-															<span class="text-light text-lg">Search results <strong>34</strong></span>
-															<div class="btn-group btn-group-sm pull-right">
-																<button type="button"
-																	class="btn btn-default-light dropdown-toggle"
-																	data-toggle="dropdown">
-																	<span class="glyphicon glyphicon-arrow-down"></span>
-																	Sort
-																</button>
-																<ul
-																	class="dropdown-menu dropdown-menu-right animation-dock"
-																	role="menu">
-																	<li class="active"><a href="#">Newest</a></li>
-																	<li><a href="#">Oldest</a></li>
-																	<li><a href="#">Popularity</a></li>
-																	<li><a href="#">Titles</a></li>
-																</ul>
-															</div>
-														</div>
-														<!--end .margin-bottom-xxl -->
-														<!-- END PAGE HEADER -->
+								<div class="card-head">
+									<ul class="nav nav-tabs pull-right" data-toggle="tabs">
+										<li class="active"><a href="#web1">newest</a></li>
+										<li><a href="#web2">featured</a></li>
+										<li><a href="#web3">frequent</a></li>
+										<li><a href="#web4">votes</a></li>
+										<li><a href="#web5">active</a></li>
+									</ul>
+									<header>Top Questions</header>
+								</div>
+								<div class="card-body tab-content animsition">
+									<div class="tab-pane active" id="web1">
+										<div class="row">
+											<div class="">
+												<!-- BEGIN PAGE HEADER -->
+												<div class="margin-bottom-xxl">
+													<span class="text-light text-lg"><strong>${totalElm}</strong> records found</span>
+													<div class="disabled btn-group btn-group-sm pull-right">
+														<button type="button"
+															class="btn btn-default-light dropdown-toggle"
+															data-toggle="dropdown">
+															<span class="glyphicon glyphicon-arrow-down"></span> Sort
+														</button>
+														<ul
+															class="dropdown-menu dropdown-menu-right animation-dock"
+															role="menu">
+															<li class="disabled active"><a href="#">Newest</a></li>
+															<li class="disabled"><a href="#">Oldest</a></li>
+															<li class="disabled"><a href="#">Popularity</a></li>
+															<li class="disabled"><a href="#">Titles</a></li>
+														</ul>
+													</div>
+												</div>
+												<!--end .margin-bottom-xxl -->
+												<!-- END PAGE HEADER -->
 
-														<!-- BEGIN RESULT LIST -->
-														<div class="list-results list-results-underlined">
-															<c:forEach items="${questionList}" var="questionItr">
-																<div class="col-xs-12">
-																<p>
-																    <a class="text-medium text-lg text-primary" href="${contextPath}/questions/${questionItr.questionId}">${questionItr.questionTitle}</a><br />
-																	<span class="opacity-75">Asked By <a href="#">${questionItr.user.userName}</a></span>
-																</p>
-																<div class="contain-xs pull-left">Search results
-																	where only texts will be shown. You can decide for
-																	yourself how much text you want to display in this
-																	field.
-																	<div class="list-tags">
-																		<a class="btn btn-xs btn-default">java</a>
-																		<a class="btn btn-xs btn-default">HTML5</a>
-																		<a class="btn btn-xs btn-default">CSS3</a>
-																		<a class="btn btn-xs btn-default">jQuery</a>
-																	</div>
+												<!-- BEGIN RESULT LIST -->
+												<div class="list-results list-results-underlined">
+													<c:forEach items="${questionList}" var="questionItr">
+														<div class="col-xs-12" style="padding-left:10px; padding-right:10px;">
+															<p class="margin-bottom-xxl">
+																<a class="text-medium text-lg text-primary" href="${contextPath}/questions/${questionItr.questionId}">${questionItr.questionTitle}</a><br />
+<%-- 																<span class="opacity-75">Asked By <a href="#">${questionItr.user.userName}</a></span> --%>
+															</p>
+															<div class="contain-xs pull-left">
+																${questionItr.questionShortDescription}
+<!-- 																 Page of data from PagingAndSortingRepository. You can call method like repo.findAll(new PageRequest(0,30)) what means you request for first page of data which contains 30 entities at most. Assuming that there are only 10 entities in database you receive a Page where size is 30 and numberOfElements is 10 -->
+																<div class="list-tags">
+																	<a class="btn btn-xs btn-default">java</a> 
+																	<a class="btn btn-xs btn-default">Spring</a> 
+																	<a class="btn btn-xs btn-default">CSS3</a> 
+																	<a class="btn btn-xs btn-default">jQuery</a>
 																</div>
-																<span class="pull-right text-default-light">${questionItr.createTimestamp}</span>
 															</div>
-															</c:forEach>
-															<!--end .col -->
+															<span class="pull-right text-default-light createTimestamps" id="" timestamp="${questionItr.createTimestamp}">${questionItr.createTimestamp}</span>
 														</div>
-														<!--end .list-results -->
-														<!-- END RESULTS LIST -->
+													</c:forEach>
+													<!--end .col -->
+												</div>
+												<!--end .list-results -->
+												<!-- END RESULTS LIST -->
 
 												<!-- BEGIN PAGING -->
 												<div class="row">
 													<div class="col-lg-12 text-center">
-													
+
 														<c:url var="firstUrl" value="/questions?pageNo=1" />
 														<c:url var="lastUrl" value="/questions?pageNo=${totalPages}" />
 														<c:url var="prevUrl" value="/questions?pageNo=${currentIndex - 1}" />
 														<c:url var="nextUrl" value="/questions?pageNo=${currentIndex + 1}" />
-														
+
 														<ul class="pagination">
 															<c:choose>
 																<c:when test="${currentIndex == 1}">
@@ -165,7 +162,8 @@
 																	<li><a href="${prevUrl}">&lt;</a></li>
 																</c:otherwise>
 															</c:choose>
-															<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+															<c:forEach var="i" begin="${beginIndex}"
+																end="${endIndex}">
 																<c:url var="pageUrl" value="/questions?pageNo=${i}" />
 																<c:choose>
 																	<c:when test="${i == currentIndex}">
@@ -187,43 +185,48 @@
 																	<li><a href="${lastUrl}">&gt;&gt;</a></li>
 																</c:otherwise>
 															</c:choose>
-																
-															<!-- <li class="disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-															<li class="active"><a href="#">1 <span
-																	class="sr-only">(current)</span></a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-															<li><a href="#">5</a></li>
-															<li><a href="#"><i class="fa fa-angle-double-right"></i></a></li> -->
 														</ul>
 													</div>
 												</div>
 												<!-- END PAGING -->
 
-													</div>
-													<!--end .col -->
-												</div>
-												<!--end .row -->
-											</div>
-											<div class="tab-pane" id="web2">
-												<p><img class="img-responsive" src="${contextPath}/resources/img/img14.jpg?1404589160" alt=""></p>
-											</div>
-											<div class="tab-pane" id="web3">
-												<p><img class="img-responsive" src="${contextPath}/resources/img/img15.jpg?1404589160" alt=""></p>
-											</div>
-											<div class="tab-pane" id="web4">
-												<p><img class="img-responsive" src="${contextPath}/resources/img/img16.jpg?1404589160" alt=""></p>
-											</div>
-											<div class="tab-pane" id="web5">
-												<p><img class="img-responsive" src="${contextPath}/resources/img/img13.jpg?1404589160" alt=""></p>
 											</div>
 										</div>
-									<!-- BEGIN BLOG MENUBAR -->
-									<!--end .col -->
+									</div>
+									<div class="tab-pane" id="web2">
+										<p>
+											<img class="img-responsive"
+												src=""
+												alt="">
+										</p>
+									</div>
+									<div class="tab-pane" id="web3">
+										<p>
+											<img class="img-responsive"
+												src=""
+												alt="">
+										</p>
+									</div>
+									<div class="tab-pane" id="web4">
+										<p>
+											<img class="img-responsive"
+												src=""
+												alt="">
+										</p>
+									</div>
+									<div class="tab-pane" id="web5">
+										<p>
+											<img class="img-responsive"
+												src=""
+												alt="">
+										</p>
+									</div>
+								</div>
+								<!-- BEGIN BLOG MENUBAR -->
+								<!--end .col -->
 							</div>
 						</div>
-						
+
 						<!-- BEGIN BLOG MENUBAR -->
 						<div class="col-sm-3">
 							<p><a  href="${contextPath}/questions/ask" class="btn btn-block button-success ink-reaction btn-success" style="text-transform: full-width;"><i class="fa fa-edit"></i> Ask Question</a></p>
@@ -515,11 +518,10 @@
 		<script src="${contextPath}/resources/js/libs/bootstrap/bootstrap.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/spin.js/spin.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/autosize/jquery.autosize.min.js"></script>
-<%-- 		<script src="${contextPath}/resources/js/libs/moment/moment.min.js"></script> --%>
-<%-- 		<script src="${contextPath}/resources/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script> --%>
+		<script src="${contextPath}/resources/js/core/moment.min.js"></script>\
 		<script src="${contextPath}/resources/js/libs/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 		<script src="${contextPath}/resources/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
-<%-- 		<script src="${contextPath}/resources/js/libs/microtemplating/microtemplating.min.js"></script> --%>
+		<script src="${contextPath}/resources/animsition/js/animsition.min.js"></script>
 		<script src="${contextPath}/resources/js/core/source/App.js"></script>
 		<script src="${contextPath}/resources/js/core/source/AppNavigation.js"></script>
 		<script src="${contextPath}/resources/js/core/source/AppOffcanvas.js"></script>
@@ -537,10 +539,38 @@ function codespotsearchFocusIn() {
 	$("#codespotsearch").addClass("searchBarOn");
 }
 
-function codespotsearchFocusOut() {
-	$("#codespotsearch").removeClass("searchBarOn");
-}
-</script>
 
+$(".createTimestamps").each(function(){
+	var timestamp = $(this).attr('timestamp');
+	var d = moment(timestamp);
+	$(this).html('asked '+moment(d, "YYYYMMDD h:mm:ss a").fromNow());
+});
+
+</script>
+<script type="text/javascript">
+$( document ).ready(function() {
+	  "use strict";
+	  $(".animsition").animsition({
+	    inClass: 'fade-in',
+	    outClass: 'fade-out',
+	    inDuration: 1500,
+	    outDuration: 800,
+	    linkElement: '.a-link',
+	    // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+	    loading: true,
+	    loadingParentElement: 'body', //animsition wrapper element
+	    loadingClass: 'animsition-loading',
+	    loadingInner: '', // e.g '<img src="loading.svg" />'
+	    timeout: false,
+	    timeoutCountdown: 5000,
+	    onLoadEvent: true,
+	    browser: [ 'animation-duration', '-webkit-animation-duration'],
+	    overlay : false,
+	    overlayClass : 'animsition-overlay-slide',
+	    overlayParentElement : 'body',
+	    transition: function(url){ window.location.href = url; }
+	  });
+});
+</script>
 	</body>
 </html>

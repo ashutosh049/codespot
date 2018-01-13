@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -64,10 +65,10 @@ public class AccessController {
 		if(pageNo==null)
 			pageNo = 1;
 		
-		Page<Question> questionPage = questionService.getPage(pageNo, 10, "createTimestamp");
+		Page<Question> questionPage = questionService.getPage(pageNo, 10, Sort.Direction.ASC , "createTimestamp");
 		
 		List<Question> questionList = questionPage.getContent(); 
-		
+		 int totalElm = (int) questionPage.getTotalElements();
 		 int current = questionPage.getNumber() + 1;
 		 int begin = Math.max(1, current - 5);
 		 int end = Math.min(begin + 10, questionPage.getTotalPages());
@@ -77,6 +78,7 @@ public class AccessController {
 		model.addAttribute("beginIndex", begin);
 	    model.addAttribute("endIndex", end);
 	    model.addAttribute("currentIndex", current);
+	    model.addAttribute("totalElm", totalElm);
 	    
 		return new ModelAndView("home");
 	}

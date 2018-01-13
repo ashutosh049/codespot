@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form"	 uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c"		 uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt"		 uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <fmt:setBundle basename="messages" var="msg" />
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -26,7 +27,7 @@
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/materialadmin.css?1425466319" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/font-awesome.min.css?1422529194" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/material-design-iconic-font.min.css?1421434286" />
-		
+		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/animsition/css/animsition.min.css" />
 		
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/libs/summernote/summernote.css?1425218701" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/js/libs/google-code-prettify/prettify.css" />
@@ -45,7 +46,8 @@
 		</style>
 		
 	</head>
-	<body class="menubar-hoverable header-fixed " onload="PR.prettyPrint()">
+	<!-- <body class="menubar-hoverable header-fixed " onload="connect()();PR.prettyPrint()"> -->
+	<body class="menubar-hoverable header-fixed " onload="connect();">
 <%-- 		<c:set var="userInContext"></c:set> --%>
 		<input type="hidden" id="questionInContext" value="${question}">
 <%-- 		<input type="text" id="questionInContextId" value="${question.questionId}"> --%>
@@ -64,7 +66,7 @@
 					<div class="row-fluid">
 						<div class="col-lg-9">
 							<div class="QUESTION">
-								<div class="card card-underline">
+								<div class="card card-underline animsition">
 									<div class="card-head">
 										<!-- <header><h1 class="text-primary"><a href="${contextPath}/questions/${question.questionId}/${question.questionTitle}" style="text-decoration: none;">${question.questionTitle}</a></h1></header> -->
 										<header>
@@ -100,7 +102,7 @@
 									<div class="card">
 										<div class="card-body no-padding">
 											<div class="alert alert-callout alert-success no-margin">
-												<span class="opacity-50" id="createTimestamp"></span><br />
+												<span class="opacity-50" id="createTimestamp">${question.createTimestamp}</span><br />
 												<a href=""> <img
 													class="img-circle img-responsive width-1"
 													src="${contextPath}/resources/img/avtars/a (10).jpg" alt=""
@@ -229,11 +231,11 @@
 		<script src="${contextPath}/resources/js/libs/spin.js/spin.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/autosize/jquery.autosize.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>\
-		
+		<script src="${contextPath}/resources/js/core/moment.min.js"></script>\
 		<script src="${contextPath}/resources/js/libs/summernote/summernote.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/summernote/summernote-ext-highlight.js"></script>
 		<script src="${contextPath}/resources/js/libs/google-code-prettify/prettify.js"></script>
-		
+		<script src="${contextPath}/resources/animsition/js/animsition.min.js"></script>
 		<script src="${contextPath}/resources/js/core/source/App.js"></script>
 		<script src="${contextPath}/resources/js/core/source/AppNavigation.js"></script>
 		<script src="${contextPath}/resources/js/core/source/AppOffcanvas.js"></script>
@@ -247,6 +249,7 @@
 		<!-- END JAVASCRIPT -->
 	<script type="text/javascript">
         var stompClient = null; 
+        var socket=null;
         var questionInContext = document.getElementById('questionInContext').value;
         var userInContext = document.getElementById('userInContext').value;
         
@@ -260,30 +263,46 @@
 /*         var headers = {
         	      '_csrf':'${_csrf.token}'
         	    }; */
-        var isUser = '${isUser}';
+        //var isUser = '${isUser}';
         
-        if(isUser){
+       /*  if(isUser){
+        	alert("isUser : "+isUser);
         	connect();
-        }
-
+        } */
         function connect() {
-	        	console.log('connect()............. START');
-	            var socket = new SockJS('${contextPath}/questionComment');
-				stompClient = Stomp.over(socket);
-	            stompClient.connect({}, function(frame) {
-	                setConnected(true);
-	                console.log('Connected: ' + frame);
-	                stompClient.subscribe('/topic/postComment/${question.questionId}', function(calResult){
-	                	if(calResult!=null)
-	                		showResult(JSON.parse(calResult.body));
-	                });
-	            }, function( error ) {
-	                alert("Your connection was interrupted. Please login again to continue."+error);
-	               window.location = '${contextPath}/login';
-	            });
-	            console.log('connect()............. END');
-	        }
-	        
+        	console.log('connect()............. START');
+            socket = new SockJS('${contextPath}/questionComment');
+			stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                setConnected(true);
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/postComment/${question.questionId}', function(calResult){
+                	if(calResult!=null)
+                		showResult(JSON.parse(calResult.body));
+                });
+            }, function( error ) {
+                alert( error );
+            });
+            console.log('connect()............. END');
+        }
+	    
+//         socket.onopen = function() {
+//             console.log('>>>>>>>>>>>>>>>socket opened<<<<<<<<<<<<\n');
+//             sock.send('test');
+//         }
+//         socket.onmessage = function(e) {
+//             console.log('>>>>>>>>>>>>>>>message<<<<<<<<<<<<\n', e.data);
+//             sock.close();
+//         };
+
+//         socket.onclose = function() {
+//             console.log('>>>>>>>>>>>>>>>close<<<<<<<<<<<<');
+//         };
+//         socket.onerror = function() {
+//             console.log('>>>>>>>>>>>>>>>close<<<<<<<<<<<<');
+//         };
+        
+        
 	        function setConnected(connected) {
 	        }
 	        
@@ -305,11 +324,11 @@
 									  'question' : {'questionId':'${question.questionId}'},
 									  'user' : {'userName':'${username}'}
 									};
-			            if(byteCount(JSON.stringify(data)) < 65000){
 				            stompClient.send(destination, {}, JSON.stringify(data));
+/* 			            if(byteCount(JSON.stringify(data)) < 65000){
 			            }else{
 			            	alert("Comment data too large. Only accepted charactyers 65000 bytes !");
-			            }
+			            } */
 	        	 }else{
 	        		 console.log('User not logged-in... Abort!');
 	        		 alert("Please login to add your comment..");
@@ -341,9 +360,11 @@
 	        }
         //}//----isUser
         
+        //alert("asked : "+ moment().calendar());
+        var d = moment("${question.createTimestamp}");
+        $('#createTimestamp').html('asked '+moment(d, "YYYYMMDD h:mm:ss a").fromNow());
         
-        var date = formatDate(new Date('${question.createTimestamp}'));
-        $('#createTimestamp').html('asked '+date);
+       /*  var date = formatDate(new Date('${question.createTimestamp}'));
         function formatDate(date) {
         	  var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 
@@ -354,13 +375,38 @@
         	  var timeMin  = date.getMinutes();
 
         	  return day + ' ' + monthNames[monthIndex] + ' ' + year +' at '+ timeHour+":"+timeMin;
-        	}
-        function byteCount(s) {
+        	} */
+        /* function byteCount(s) {
             return encodeURI(s).split(/%..|./).length - 1;
-        }
+        } */
         var on_error =  function(error) {
             console.log('error');
         };
     </script>
+    <script type="text/javascript">
+$( document ).ready(function() {
+	  "use strict";
+	  $(".animsition").animsition({
+	    inClass: 'fade-in',
+	    outClass: 'fade-out',
+	    inDuration: 1500,
+	    outDuration: 800,
+	    linkElement: '.a-link',
+	    // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+	    loading: true,
+	    loadingParentElement: '.QUESTION', //animsition wrapper element
+	    loadingClass: 'animsition-loading',
+	    loadingInner: '', // e.g '<img src="loading.svg" />'
+	    timeout: false,
+	    timeoutCountdown: 5000,
+	    onLoadEvent: true,
+	    browser: [ 'animation-duration', '-webkit-animation-duration'],
+	    overlay : false,
+	    overlayClass : 'animsition-overlay-slide',
+	    overlayParentElement : 'body',
+	    transition: function(url){ window.location.href = url; }
+	  });
+});
+</script>
 	</body>
 </html>

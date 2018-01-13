@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,8 +41,8 @@
 		<script type="text/javascript" src="${contextPath}/resources/js/libs/utils/respond.min.js?1403934956"></script>
 		<![endif]-->
 	</head>
-	<body class="header-fixed " onload="PR.prettyPrint()">
-
+<!-- 	<body class="header-fixed " onload="PR.prettyPrint()"> -->
+	<body class="header-fixed">
 		<!-- BEGIN HEADER-->
 		<jsp:include page="contents/header.jsp"/>
 		<!-- END HEADER-->
@@ -75,8 +73,8 @@
 									<div class="card-head style-success">
 										<header><i class="fa fa-edit"></i> Ask a new question</header>
 									</div>
-									<form:form class="form" role="form" modelAttribute="question" action="${contextPath}/questions/create">
-
+									<%-- <form:form id="questionAskForm" class="form" role="form" modelAttribute="question" > --%>
+									<form:form id="questionAskForm" class="form" role="form" modelAttribute="question" action="${contextPath}/questions/create">
 										<div class="card-body animsition"><!-- form-inverse -->
 											<div class="row">
 												<div class="col-md-8">
@@ -119,6 +117,7 @@
 										<div class="card-body tab-content">
 												<div class="form-group">
 												<form:textarea path="questionDescription" id="description" name="description" class="form-control control-4-rows" spellcheck="false"></form:textarea>
+												<form:input type="hidden" path="questionShortDescription" id="questionShortDescription" name="questionShortDescription"></form:input>
 												<!-- <div id="summernote1">
 													<h2>WYSIWYG Editor</h2>
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -497,7 +496,24 @@ $( document ).ready(function() {
 	    transition: function(url){ window.location.href = url; }
 	  });
 
-});
+	  /* -------------------------------------------------- */
+		/* Update summernote question short-description     */
+		/* ------------------------------------------------ */
+	
+	
+	document.getElementById('questionAskForm').onsubmit = function(e) {
+		var cleanText = $("#description").code();
+		//var cleanText = code.replace(/<\/?[^>]+(>|$)/g, "");
+		//cleanText = text.text();
+		if (cleanText.length >= 200) {
+			cleanText = cleanText.substring(0, 190);
+		}
+		cleanText = cleanText.replace(/<\/?[^>]+(>|$)/g, "");
+		document.getElementById('questionShortDescription').value = cleanText;
+
+	};
+
+					});
 </script>
 
 	</body>

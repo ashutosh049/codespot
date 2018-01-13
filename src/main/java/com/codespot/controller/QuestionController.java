@@ -83,9 +83,10 @@ public class QuestionController {
 		System.out.println("Tags : "+question.getQuestionTags());
 		//String escapedContent = StringEscapeUtils.escapeHtml4(question.getQuestionDescription());
 		//String escapedContent = StringUtils.escape(question.getQuestionDescription());
-		//String escapedContent = com.codespot.util.StringUtils.escapeForHtml(question.getQuestionDescription(), false);
-		//String escapedContent = HtmlUtils.htmlEscape(question.getQuestionDescription(), "UTF8");
-		String escapedContent = question.getQuestionDescription();
+//		String escapedContent = com.codespot.util.StringUtils.(question.getQuestionDescription(), false);
+//		String escapedContent = HtmlUtils.htmlEscape(question.getQuestionDescription(), "UTF8");
+//		String escapedContent = question.getQuestionDescription();//.replace("/<\/?[^>]+(>|$)/g", "");
+		String content = question.getQuestionDescription();
 		User userInContext = (User)session.getAttribute("userInContext");
 		
 		if(userInContext==null){
@@ -93,6 +94,7 @@ public class QuestionController {
 		}
 		
 		question.setUser(userInContext);
+		//question.setQuestionShortDescription(escapedContent.substring(0,150));
 		question.setQuestionDescription("");
 		
 		long currentTimestamp = System.currentTimeMillis();
@@ -109,7 +111,7 @@ public class QuestionController {
 			if(dir.mkdirs()){
 				File questionFile = new File(dir.getAbsolutePath()+"/"+savedQuestion.getQuestionTitle()+".html");
 				try {
-					FileUtils.writeStringToFile(questionFile, escapedContent, "UTF8");
+					FileUtils.writeStringToFile(questionFile, content, "UTF8");
 					savedQuestion.setQuestionFilePath(questionFile.getAbsolutePath());
 					questionService.update(savedQuestion);
 				} catch (IOException e) {
