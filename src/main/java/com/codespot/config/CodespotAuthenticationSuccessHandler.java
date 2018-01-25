@@ -63,10 +63,11 @@ public class CodespotAuthenticationSuccessHandler implements AuthenticationSucce
 		String name = authentication.getName();
 		final HttpSession session = request.getSession();
 
-		User userInContext = userService.findByUserEmail(name);
+		User userInContext = userService.findByUserName(name);
 		session.setAttribute("userInContext", userInContext);
 
 		DefaultSavedRequest savedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+		logger.info("Requested page : "+savedRequest);
 		if (savedRequest != null) {
 			return savedRequest.getRedirectUrl();
 		} else {

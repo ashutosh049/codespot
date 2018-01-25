@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.ws.rs.GET;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import com.codespot.model.Question;
 import com.codespot.model.User;
 import com.codespot.service.IQuestionService;
 import com.codespot.service.IUserService;
+import com.codespot.util.CodespotConstants;
 
 //import com.codespot.util.FileUtils;
 
@@ -59,13 +61,34 @@ public class AccessController {
 	ObjectError error;
 	FieldError fieldError;
 
-	@RequestMapping({ "/","/questions","/questionComment/info"})
-	public ModelAndView home(final Model model, final Locale locale,final RedirectAttributes redirectAttributes,
+	@GET
+	@RequestMapping({ "/"})
+	public ModelAndView defaultHome(final Model model, final Locale locale,final RedirectAttributes redirectAttributes,
 			HttpSession argHttpSession, @RequestParam(value="pageNo", required=false) Integer pageNo) {
+		return new ModelAndView("redirect:/questions");
+	}
+	
+	@GET
+	@RequestMapping({"/questions","/questionComment/info"})
+	public ModelAndView questionHome(final Model model, final Locale locale,final RedirectAttributes redirectAttributes,
+			HttpSession argHttpSession, @RequestParam(value="sd", required=false) String sd, @RequestParam(value="pageNo", required=false) Integer pageNo) {
+		
+		Sort.Direction sortDirection = CodespotConstants.Sort_Order_DESC;
+		
+		if(sd==null)
+//			so = CodespotConstants.Sort_Order_ASC;
+			sd = CodespotConstants.SortDirection.ASC.name();
+		
+		if(sd.equals(CodespotConstants.SortDirection.ASC.name())){
+			
+		}
+		else{
+		}
+		
 		if(pageNo==null)
 			pageNo = 1;
 		
-		Page<Question> questionPage = questionService.getPage(pageNo, 10, Sort.Direction.ASC , "createTimestamp");
+		Page<Question> questionPage = questionService.getPage(pageNo, 10, Sort.Direction.DESC , "createTimestamp");
 		
 		List<Question> questionList = questionPage.getContent(); 
 		 int totalElm = (int) questionPage.getTotalElements();

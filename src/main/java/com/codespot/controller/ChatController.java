@@ -45,7 +45,7 @@ public class ChatController {
     }*/
 	
 //	@PreAuthorize("hasRole('ROLE_USER')")
-	@MessageMapping("/questionComment")
+	/*@MessageMapping("/questionComment")
 	@SendTo("/topic/postComment/{questionId}")
     public Comment postComment(@DestinationVariable Long questionId, Comment comment) throws Exception {
 		logger.info("@MessageMapping : questionComment/"+questionId);
@@ -63,7 +63,7 @@ public class ChatController {
 			}
 		}
         return comment;
-    }
+    }*/
 	
 //	@PreAuthorize("hasRole('ROLE_USER')")
 	@SubscribeMapping("/questionComment/{questionId}")

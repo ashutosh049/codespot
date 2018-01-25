@@ -50,15 +50,28 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
-								<h3 class="text-primary">Congratulations!</h3>
+								<c:if test="${user.userName != null && user.userName!='' && user.userName.length > 0}">
+									<h3 class="text-primary">Congratulations!</h3>
+								</c:if>
 							</div>
 							<div class="col-lg-12">
 								<article class="margin-bottom-xxl">
-									<p class="text-lg">
-										Dear <label class="text-success">Ashutosh</label>${user.userName}, You have been successfully registered with Codespot.<br/>
-										To complete the signup process you have to verify you email account. We have sent you a verification email.
-										Please click on the link provided in the email to activate your codespot account
-									</p>
+								<c:choose>
+									<c:when test="${user.userName != null && user.userName!='' && user.length > 0}">
+										<p class="text-lg">
+											Dear <label class="text-success">${user.userName}</label>, You have been successfully registered with Codespot.<br/>
+											To complete the signup process you have to verify you email account. We have sent you a verification email.
+											Please click on the link provided in the email to activate your codespot account
+										</p>
+									</c:when>
+									<c:otherwise>
+										<p class="text-lg">
+											<label class="text-danger">Oops...</label> There seems to be a problem while signing up.<br/>
+												Please try again.
+										</p>
+									</c:otherwise>
+								</c:choose>
+								
 									<div class="">
 										<br/>
 									</div>

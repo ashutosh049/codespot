@@ -22,7 +22,7 @@
 		<!-- END META -->
 
 		<!-- BEGIN STYLESHEETS -->
-		<link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+		<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/> -->
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/bootstrap.css?1422792965" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/materialadmin.css?1425466319" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/font-awesome.min.css?1422529194" />
@@ -47,6 +47,7 @@
 		
 	</head>
 	<!-- <body class="menubar-hoverable header-fixed " onload="connect()();PR.prettyPrint()"> -->
+<!-- 	<body class="menubar-hoverable header-fixed"> -->
 	<body class="menubar-hoverable header-fixed " onload="connect();">
 <%-- 		<c:set var="userInContext"></c:set> --%>
 		<input type="hidden" id="questionInContext" value="${question}">
@@ -244,7 +245,8 @@
 		<script src="${contextPath}/resources/js/core/source/AppNavSearch.js"></script>
 		<script src="${contextPath}/resources/js/core/source/AppVendor.js"></script>
 		<script src="${contextPath}/resources/js/core/demo/Demo.js"></script>
-		<script src="${contextPath}/resources/js/core/sockjs-0.3.4.min.js"></script>
+		<%-- <script src="${contextPath}/resources/js/core/sockjs-0.3.4.min.js"></script> --%>
+		<script src="${contextPath}/resources/js/core/sockjs.min.js"></script>
 		<script src="${contextPath}/resources/js/core/stomp.min.js"></script>
 		<!-- END JAVASCRIPT -->
 	<script type="text/javascript">
@@ -263,78 +265,76 @@
 /*         var headers = {
         	      '_csrf':'${_csrf.token}'
         	    }; */
-        //var isUser = '${isUser}';
+
+        var isUser = '${isUser}';
         
-       /*  if(isUser){
+         /* if(isUser){
         	alert("isUser : "+isUser);
-        	connect();
+	        connect();
         } */
         function connect() {
         	console.log('connect()............. START');
-            socket = new SockJS('${contextPath}/questionComment');
-			stompClient = Stomp.over(socket);
-            stompClient.connect({}, function(frame) {
-                setConnected(true);
-                console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/postComment/${question.questionId}', function(calResult){
-                	if(calResult!=null)
-                		showResult(JSON.parse(calResult.body));
-                });
-            }, function( error ) {
-                alert( error );
-            });
+        	if(isUser==true){
+        	   alert("Connecting......");
+                socket = new SockJS('${contextPath}/questionComment');
+    			stompClient = Stomp.over(socket);
+                stompClient.connect({}, function(frame) {
+                    //setConnected(true);
+                    console.log('Connected: ' + frame);
+                    stompClient.subscribe('/topic/postComment/${question.questionId}', function(calResult){
+                    	if(calResult!=null)
+                    		showResult(JSON.parse(calResult.body));
+                    });
+                }, function( error ) {
+                    alert( "error found ...\n"+error );
+                });        		
+        	}
             console.log('connect()............. END');
         }
 	    
-//         socket.onopen = function() {
-//             console.log('>>>>>>>>>>>>>>>socket opened<<<<<<<<<<<<\n');
-//             sock.send('test');
-//         }
-//         socket.onmessage = function(e) {
-//             console.log('>>>>>>>>>>>>>>>message<<<<<<<<<<<<\n', e.data);
-//             sock.close();
-//         };
-
-//         socket.onclose = function() {
-//             console.log('>>>>>>>>>>>>>>>close<<<<<<<<<<<<');
-//         };
-//         socket.onerror = function() {
-//             console.log('>>>>>>>>>>>>>>>close<<<<<<<<<<<<');
-//         };
-        
-        
-	        function setConnected(connected) {
-	        }
+        /* socket.onopen = function() {
+            console.log('>>>>>>>>>>>>>>>socket.onopen<<<<<<<<<<<<<<<<\n');
+            socket.send('test');
+        }
+        socket.onmessage = function(e) {
+            console.log('>>>>>>>>>>>>>>>socket.onmessage<<<<<<<<<<<<<<<<\n', e.data);
+            socket.close();
+        };
+        socket.onclose = function() {
+            console.log('>>>>>>>>>>>>>>>socket.onclose<<<<<<<<<<<<<<<<');
+        };
+        socket.onerror = function() {
+            console.log('>>>>>>>>>>>>>>>socket.onerror<<<<<<<<<<<<<<<<');
+        }; */
 	        
-	        function disconnect() {
-	        	console.log('disconnect()............. START');
-	            stompClient.disconnect();
-	            setConnected(false);
-	            console.log("Disconnected");
-	            console.log('disconnect()............. END');
-	        }
-	        function postComment() {
-	        	
-	        	console.log('posting comment............. START');
-	        	 if(isUser){
-	        		    //connect();
-			            var commentDescription = $('.note-editable').html();
-			            var destination = "/postQuestionComment/questionComment/${question.questionId}";
-			            var data = {  'commentDescription': commentDescription,
-									  'question' : {'questionId':'${question.questionId}'},
-									  'user' : {'userName':'${username}'}
-									};
-				            stompClient.send(destination, {}, JSON.stringify(data));
-/* 			            if(byteCount(JSON.stringify(data)) < 65000){
-			            }else{
-			            	alert("Comment data too large. Only accepted charactyers 65000 bytes !");
-			            } */
-	        	 }else{
-	        		 console.log('User not logged-in... Abort!');
-	        		 alert("Please login to add your comment..");
-	        	 }
-	        	 console.log('posting comment............. END');
-	        }
+        function disconnect() {
+        	console.log('disconnect()............. START');
+            stompClient.disconnect();
+            //setConnected(false);
+            console.log("Disconnected");
+            console.log('disconnect()............. END');
+        }
+        
+        function postComment() {
+        	 if(isUser && stompClient!=null){
+        		    //connect();
+		            var commentDescription = $('.note-editable').html();
+		            var destination = "/postQuestionComment/questionComment/${question.questionId}";
+		            var data = {  'commentDescription': commentDescription,
+								  'question' : {'questionId':'${question.questionId}'},
+								  'user' : {'userName':'${username}'}
+								};
+			            stompClient.send(destination, {}, JSON.stringify(data));
+				/*  if(byteCount(JSON.stringify(data)) < 65000){
+		            }else{
+		            	alert("Comment data too large. Only accepted charactyers 65000 bytes !");
+		            } */
+        	 }else{
+        		 console.log('User not logged-in... Abort!');
+        		 alert("Please login to add your comment..");
+        	 }
+        }
+        
 	        function showResult(comment) {
 	        	/* console.log("-------RESULT----");
 	        	$.each(result, function(key,value){
@@ -353,10 +353,7 @@
 		        	 				 "</div>"+
 	        	 				"</div>"+
 	        	 			"</li>";
-	        	 			
-	        	console.log('showResult()............. START');
 	            $("#commentList").append(cmnt);
-	            console.log('showResult()............. END');
 	        }
         //}//----isUser
         
@@ -383,7 +380,8 @@
             console.log('error');
         };
     </script>
-    <script type="text/javascript">
+    
+<script type="text/javascript">
 $( document ).ready(function() {
 	  "use strict";
 	  $(".animsition").animsition({
@@ -408,5 +406,6 @@ $( document ).ready(function() {
 	  });
 });
 </script>
-	</body>
+
+</body>
 </html>

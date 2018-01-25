@@ -4,9 +4,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.data.domain.Sort;
 
 public class CodespotConstants {
 
+	public enum SortDirection {
+		ASC, DESC;
+	}
+	
+	public static final Sort.Direction Sort_Order_ASC = Sort.Direction.ASC;
+	public static final Sort.Direction Sort_Order_DESC = Sort.Direction.DESC;
+	
 	public static final String APP_DEPLOY_URL = "app_deploy_url";
 	public static final String APPLICATION_NAME = "application_name";
 

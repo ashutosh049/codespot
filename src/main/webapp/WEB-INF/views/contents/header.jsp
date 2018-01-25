@@ -104,6 +104,7 @@
 
 
 				<!-- off canvas-chat -->
+				<security:authorize access="hasRole('ROLE_USER')" var="isUser">
 				<ul class="header-nav header-nav-toggle">
 						<li>
 							<a class="btn btn-icon-toggle btn-default" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
@@ -111,6 +112,7 @@
 							</a>
 						</li>
 					</ul>
+				</security:authorize>
 				<!--end .header-nav-toggle -->
 			</div>
 			<!--end #header-navbar-collapse -->
