@@ -33,6 +33,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+import com.codespot.model.ActiveUserStore;
 import com.codespot.util.CodespotConstants;
 import com.codespot.util.MailSender;
 import com.codespot.util.MailSenderHelper;
@@ -139,8 +140,13 @@ public class CodespotWebAppConfig {
 	}
 
 	@Bean
-	CodespotAuthenticationSuccessHandler codespotbAuthenticationSuccessHandler() {
+	CodespotAuthenticationSuccessHandler codespotAuthenticationSuccessHandler() {
 		return new CodespotAuthenticationSuccessHandler();
+	}
+	
+	@Bean
+	CodespotLogoutSuccessHandler codespotLogoutSuccessHandler() {
+		return new CodespotLogoutSuccessHandler();
 	}
 
 	@Bean
@@ -190,6 +196,9 @@ public class CodespotWebAppConfig {
 	 * factory.setMaxFileSize("20MB"); factory.setMaxRequestSize("20MB"); return
 	 * factory.createMultipartConfig(); }
 	 */
-
+	@Bean
+	public ActiveUserStore activeUserStore(){
+	    return new ActiveUserStore();
+	}
 	
 }

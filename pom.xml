@@ -9,6 +9,8 @@
 	<url>http://www.codespot.com</url>
 
 	<properties>
+		<!-- Spring-BOot -->
+		<spring-boot.version>2.0.0.RELEASE</spring-boot.version>
 		<!-- Spring -->
 			<org.springframework.version>4.2.5.RELEASE</org.springframework.version>
 			<org.springframework.security.version>4.0.4.RELEASE</org.springframework.security.version>
@@ -50,6 +52,14 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- spring-boot -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot</artifactId>
+		    <version>${spring-boot.version}</version>
+		</dependency>
+
 
 		<!-- Spring Security -->
 		<dependency>

@@ -66,6 +66,10 @@ Use Stomp.client(url) to use regular WebSockets or use Stomp.over(ws) if you req
 
 Apart from this initialization, the STOMP API remains the same in both cases.
 
+## Screen Shots
+
+![screenshot](./src/main/webapp/resources/img/screenshots/2018-01-14.png)
+
 ## License
 
 [Public Domain](http://choosealicense.com/licenses/unlicense/), or in other words, do whatever you want with it, but I provide no warranties of any kind so I can't be held responsible for any damages it may cause.

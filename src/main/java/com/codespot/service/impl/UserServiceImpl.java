@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -128,6 +131,11 @@ public class UserServiceImpl extends AbstractJpaService<User> implements IUserSe
 	public User findByUserName(String username) {
 		return userRepository.findByUserName(username);
 	}
-
+	
+	public Page<User> getPage(long id,int pageNumber, int fetchSize, Sort.Direction sortParameter, String sortByField) {
+		PageRequest request = new PageRequest(pageNumber - 1, fetchSize, sortParameter, sortByField);
+		Page<User>  page = userRepository.findAllAddableFriends(id, request);
+		return page;
+	}
 
 }
