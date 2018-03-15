@@ -6,11 +6,11 @@ This project demonstrates the use of [STOMP](https://stomp.github.io/) over WebS
 - [Maven](https://maven.apache.org/)
 - [STOMP](http://stomp.github.io/)
 - [Apache ActiveMQ](http://activemq.apache.org)
-- [Spring Framework » 4.2.5.RELEASE](https://spring.io/blog/2016/02/25/spring-framework-4-2-5-available-now)
-- [Spring Security » 4.0.4.RELEASE](https://docs.spring.io/spring-security/site/docs/current/reference/html/introduction.html#get-spring-security)
-- [Spring WebSocket » 4.2.5.RELEASE](https://docs.spring.io/spring-security/site/docs/current/reference/html/websocket.html)
-- [Spring Data JPA » 1.11.0.RELEASE](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
-- [Core Hibernate O/RM Functionality » 4.3.11.Final](http://hibernate.org/orm/releases/4.3/)
+- [Spring Framework - 4.2.5.RELEASE](https://spring.io/blog/2016/02/25/spring-framework-4-2-5-available-now)
+- [Spring Security - 4.0.4.RELEASE](https://docs.spring.io/spring-security/site/docs/current/reference/html/introduction.html#get-spring-security)
+- [Spring WebSocket - 4.2.5.RELEASE](https://docs.spring.io/spring-security/site/docs/current/reference/html/websocket.html)
+- [Spring Data JPA - 1.11.0.RELEASE](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
+- [Core Hibernate O/RM Functionality - 4.3.11.Final](http://hibernate.org/orm/releases/4.3/)
 - [sockjs-0.3.4.min](http://sockjs.github.io/sockjs-client/)
 
 
