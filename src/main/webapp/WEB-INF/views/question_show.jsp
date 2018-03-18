@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
@@ -500,6 +501,8 @@ function showMessage(chatMessage) {
 
 </body>
 =======
+=======
+>>>>>>> post-chat
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
@@ -1000,5 +1003,8 @@ function showMessage(chatMessage) {
 </script>
 
 </body>
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 </html>

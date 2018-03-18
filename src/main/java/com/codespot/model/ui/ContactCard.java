@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * 
  */
@@ -71,6 +72,8 @@ public class ContactCard {
 
 }
 =======
+=======
+>>>>>>> post-chat
 /**
  * 
  */
@@ -142,4 +145,7 @@ public class ContactCard {
 	}
 
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat

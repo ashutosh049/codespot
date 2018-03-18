@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.config;
 import java.io.IOException;
 
@@ -24,6 +25,8 @@ public class CodespotLogoutSuccessHandler implements LogoutSuccessHandler {
         response.sendRedirect("/logout.html?logSucc=true");
     }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.config;
 import java.io.IOException;
 
@@ -48,5 +51,8 @@ public class CodespotLogoutSuccessHandler implements LogoutSuccessHandler {
 
         response.sendRedirect("/logout.html?logSucc=true");
     }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

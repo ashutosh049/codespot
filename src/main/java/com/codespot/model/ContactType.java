@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * 
  */
@@ -14,6 +15,8 @@ public enum ContactType {
 
 }
 =======
+=======
+>>>>>>> post-chat
 /**
  * 
  */
@@ -28,4 +31,7 @@ public enum ContactType {
 	AllAddable, AllAddableSent, AllAdded;
 
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat

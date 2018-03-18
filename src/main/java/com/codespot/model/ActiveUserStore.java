@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.model;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class ActiveUserStore {
 		this.users = users;
 	}
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.model;
 
 import java.util.ArrayList;
@@ -40,5 +43,8 @@ public class ActiveUserStore {
 	public void setUsers(List<String> users) {
 		this.users = users;
 	}
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

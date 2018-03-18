@@ -54,6 +54,31 @@
 		<div class="col-md-12">
 			<p class="pull-left" style="vertical-align: middle;">&copy; 2018.
 				Codespot</p>
+<<<<<<< HEAD
+
+			<p class="pull-left" style="vertical-align: middle;">
+				&nbsp;&nbsp;&nbsp;&nbsp;<a
+					href="mailto:kumar.ashutosh.dubey@gmail.com?Subject=Hello%20Ashutosh"
+					target="_top"> <i class="fa fa-envelope"> </i>
+				</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			</p>
+
+			<p class="pull-left" style="vertical-align: middle;">
+				<a href="https://github.com/ashutosh049"> <i
+					class="fa fa-github"> </i>
+				</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			</p>
+			<p class="pull-right" style="vertical-align: middle;">
+				Project by <a href="https://github.com/ashutosh049">Ashutosh</a> <img
+					class="img-circle" src="${contextPath}/resources/img/avtars/me.jpg"
+					alt="" style="height: 30px;">
+			</p>
+
+		</div>
+	</div>
+        </div>
+>>>>>>> post-chat
+=======
 
 			<p class="pull-left" style="vertical-align: middle;">
 				&nbsp;&nbsp;&nbsp;&nbsp;<a

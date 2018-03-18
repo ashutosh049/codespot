@@ -240,5 +240,8 @@
 		</div>
 	</div>
 	
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 </header>

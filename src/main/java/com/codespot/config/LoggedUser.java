@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.config;
 import java.util.List;
 
@@ -50,6 +51,8 @@ public class LoggedUser implements HttpSessionBindingListener {
         this.username = username;
     }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.config;
 import java.util.List;
 
@@ -100,5 +103,8 @@ public class LoggedUser implements HttpSessionBindingListener {
     public void setUsername(String username) {
         this.username = username;
     }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

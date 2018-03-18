@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.model;
 
 public class ChatMessage {
@@ -47,6 +48,8 @@ public class ChatMessage {
 	
 
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.model;
 
 public class ChatMessage {
@@ -94,5 +97,8 @@ public class ChatMessage {
 
 	
 
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

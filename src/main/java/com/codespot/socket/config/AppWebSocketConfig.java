@@ -52,5 +52,8 @@ public class AppWebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer
 //		registry.setUserDestinationPrefix("/user");
 	}
 
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

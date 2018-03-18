@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.model;
 
 import java.io.Serializable;
@@ -93,6 +94,8 @@ public class Friends implements Serializable {
 	}
 	
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.model;
 
 import java.io.Serializable;
@@ -186,5 +189,8 @@ public class Friends implements Serializable {
 		this.status = status;
 	}
 	
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
 }

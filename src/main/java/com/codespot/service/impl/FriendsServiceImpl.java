@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.service.impl;
 
 import java.util.List;
@@ -61,6 +62,8 @@ public class FriendsServiceImpl extends AbstractJpaService<Friends> implements I
 
 }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.service.impl;
 
 import java.util.List;
@@ -122,4 +125,7 @@ public class FriendsServiceImpl extends AbstractJpaService<Friends> implements I
 	}
 
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat

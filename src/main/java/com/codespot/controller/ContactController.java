@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.controller;
 
 import java.security.Principal;
@@ -204,6 +205,8 @@ public class ContactController {
 
 }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.controller;
 
 import java.security.Principal;
@@ -408,4 +411,7 @@ public class ContactController {
 	 */
 
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat

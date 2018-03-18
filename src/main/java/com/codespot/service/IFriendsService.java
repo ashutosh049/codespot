@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.service;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public interface IFriendsService extends IOperations<Friends>{
 
 }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.service;
 
 import java.util.List;
@@ -34,4 +37,7 @@ public interface IFriendsService extends IOperations<Friends>{
 	List<Friends> findAllPendingFR(User userInContext);
 
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat

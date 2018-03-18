@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.codespot.dao.impl;
 
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,8 @@ public class FriendsDao extends AbstractJpaDao<Friends>implements IFriendsDao {
 	}
 }
 =======
+=======
+>>>>>>> post-chat
 package com.codespot.dao.impl;
 
 import org.springframework.stereotype.Repository;
@@ -30,4 +33,7 @@ public class FriendsDao extends AbstractJpaDao<Friends>implements IFriendsDao {
 		setClazz(Friends.class);
 	}
 }
+<<<<<<< HEAD
+>>>>>>> post-chat
+=======
 >>>>>>> post-chat
