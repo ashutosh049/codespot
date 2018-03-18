@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +9,7 @@
 <html lang="en">
 	<head>
 		
-		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/images/icons/codespot.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/icons/codespot.ico">
 	    <title><spring:message code="app.name" /></title>
 
 		<!-- BEGIN META -->
@@ -52,15 +50,28 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
-								<h3 class="text-primary">Congratulations!</h3>
+								<c:if test="${not empty user.userName}">
+									<h3 class="text-primary">Congratulations!</h3>
+								</c:if>
 							</div>
 							<div class="col-lg-12">
 								<article class="margin-bottom-xxl">
-									<p class="text-lg">
-										Dear <label class="text-success">Ashutosh</label>${user.userName}, You have been successfully registered with Codespot.<br/>
-										To complete the signup process you have to verify you email account. We have sent you a verification email.
-										Please click on the link provided in the email to activate your codespot account
-									</p>
+								<c:choose>
+									<c:when test="${not empty user.userName}">
+										<p class="text-lg">
+											Dear <label class="text-success">${user.userName}</label>, You have been successfully registered with Codespot.<br/>
+											To complete the signup process you have to verify you email account. We have sent you a verification email.
+											Please click on the link provided in the email to activate your codespot account
+										</p>
+									</c:when>
+									<c:otherwise>
+										<p class="text-lg">
+											<label class="text-danger">Oops...</label> There seems to be a problem while signing up.<br/>
+												Please try again.
+										</p>
+									</c:otherwise>
+								</c:choose>
+								
 									<div class="">
 										<br/>
 									</div>

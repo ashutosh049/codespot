@@ -9,6 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.codespot.Exception.UserNotFound;
 import com.codespot.dao.IUserDao;
 import com.codespot.dao.common.IOperations;
+import com.codespot.model.ContactType;
 import com.codespot.model.Role;
 import com.codespot.model.User;
 import com.codespot.repository.RoleRepository;
@@ -128,6 +132,21 @@ public class UserServiceImpl extends AbstractJpaService<User> implements IUserSe
 	public User findByUserName(String username) {
 		return userRepository.findByUserName(username);
 	}
+	
+	public Page<User> findAllContactType(ContactType contactType, long id,int pageNumber, int fetchSize, Sort.Direction sortParameter, String sortByField) {
+		PageRequest request = new PageRequest(pageNumber - 1, fetchSize, sortParameter, sortByField);
+		
+		Page<User>  page = null;
+		
+		if (contactType.equals(ContactType.AllAddable)) {
+			page = userRepository.findAllAddableFriends(id, request);
+		} else if (contactType.equals(ContactType.AllAddableSent)) {
+			page = userRepository.findAllAddableSentFriends(id, request);
+		} else if (contactType.equals(ContactType.AllAdded)) {
+			page = userRepository.findAllAddedFriends(id, request);
+		}
 
+		return page;
+	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 
+import com.codespot.model.ActiveUserStore;
 import com.codespot.model.User;
 import com.codespot.service.IUserService;
 import com.codespot.service.SecurityRole;
@@ -30,6 +31,9 @@ public class CodespotAuthenticationSuccessHandler implements AuthenticationSucce
     
     @Autowired
 	private IUserService userService;
+	
+	@Autowired
+    ActiveUserStore activeUserStore;
 
     public CodespotAuthenticationSuccessHandler() {
         super();
@@ -52,21 +56,28 @@ public class CodespotAuthenticationSuccessHandler implements AuthenticationSucce
     }
 
     protected String determineTargetUrl(final Authentication authentication,final HttpServletRequest request) {
-        boolean isAdmin = false;
+        //boolean isAdmin = false;
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals(SecurityRole.ROLE_ADMIN.toString())) {
-        		isAdmin = true;
+        		//isAdmin = true;
                 break;
             }
         }
 		String name = authentication.getName();
-		final HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		
+        if (session != null) {
+        	session.setMaxInactiveInterval(30 * 60);
+            LoggedUser user = new LoggedUser(name, activeUserStore);
+            session.setAttribute("user", user);
+            User userInContext = userService.findByUserName(name);
+            session.setAttribute("userInContext", userInContext);
+        }
 
-		User userInContext = userService.findByUserEmail(name);
-		session.setAttribute("userInContext", userInContext);
 
 		DefaultSavedRequest savedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+		logger.info("Requested page : "+savedRequest);
 		if (savedRequest != null) {
 			return savedRequest.getRedirectUrl();
 		} else {
@@ -95,5 +106,7 @@ public class CodespotAuthenticationSuccessHandler implements AuthenticationSucce
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
+    
+    
 
 }

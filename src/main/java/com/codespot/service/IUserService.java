@@ -1,21 +1,16 @@
 package com.codespot.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+
 import com.codespot.dao.common.IOperations;
+import com.codespot.model.ContactType;
 import com.codespot.model.User;
 
 public interface IUserService extends IOperations<User>{
 
 	User findByUserName(String username);
 	User findByUserEmail(String username);
-	
-	/*
-	public User save(User user);
-	public User delete(long id) throws UserNotFound;
-	public List<User> findAll();
-	public User update(User user) throws UserNotFound;
-	public User findById(long id);
-	public boolean ifExist(String fieldName, String FieldValue);
-	public List<User> findByEmail(String email);
-	*/
+	Page<User> findAllContactType(ContactType contactType, long userid, int pageNumber, int fetchSize, Sort.Direction sortParameter, String sortByField);
 
 }

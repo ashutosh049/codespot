@@ -38,8 +38,8 @@ public class QuestionServiceImpl extends AbstractJpaService<Question> implements
 		return dao;
 	}
 
-	public Page<Question> getPage(int pageNumber, int fetchSize, String sortByField) {
-		PageRequest request = new PageRequest(pageNumber - 1, fetchSize, Sort.Direction.DESC, sortByField);
+	public Page<Question> getPage(int pageNumber, int fetchSize, Sort.Direction sortParameter, String sortByField) {
+		PageRequest request = new PageRequest(pageNumber - 1, fetchSize, sortParameter, sortByField);
 		Page<Question>  page = questionRepository.findAll(request);
 		return page;
 	}

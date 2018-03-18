@@ -1318,7 +1318,7 @@ a.text-success:hover {
   background-color: rgba(12, 12, 12, 0.07);
 }
 .header-nav .navbar-search {
-  float: left;
+  float: right;
 }
 .header-nav .header-nav-brand {
   display: inline-table;
@@ -1501,8 +1501,8 @@ a.text-success:hover {
     z-index: 1;
   }
   .navbar-search.expanded .form-group {
-/*     max-width: 100%; */
-/*     width: 480px; */
+    max-width: 100%;
+    width: 480px;
   }
 }
 #header.header-inverse {
@@ -6731,7 +6731,7 @@ sub.badge {
 .navbar-search .form-group {
   display: table-cell;
   margin-bottom: 0;
-/*   max-width: 0; */
+  max-width: 0;
   vertical-align: middle;
   overflow: hidden;
   -webkit-transition: max-width 0.25s ease-in-out;
@@ -6741,7 +6741,7 @@ sub.badge {
 .navbar-search input {
   display: inline-block;
   padding: 0 10px;
-/*   max-width: 0; */
+  max-width: 0;
   height: 36px;
   border: none;
   -webkit-transition: max-width 0.25s ease-in-out;
@@ -6757,14 +6757,14 @@ sub.badge {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
 }
 .navbar-search.expanded .form-group {
-  max-width: 700px;
+  max-width: 500px;
 }
 .navbar-search.expanded .btn {
   color: #0c0c0c;
   background: inherit;
 }
 .navbar-search.expanded input {
-/*   max-width: 700px; */
+  max-width: 500px;
 }
 .nav li.padded {
   padding: 10px;
@@ -7659,6 +7659,15 @@ sub.badge {
 }
 .no-margin {
   margin: 0 !important;
+}
+.margin-top-lg {
+  margin-bottom: 5px;
+}
+.margin-top-xl {
+  margin-bottom: 10px;
+}
+.margin-top-xxl {
+  margin-bottom: 20px;
 }
 .margin-bottom-lg {
   margin-bottom: 5px;

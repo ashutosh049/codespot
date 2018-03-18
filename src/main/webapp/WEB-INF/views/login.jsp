@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +9,7 @@
 <html lang="en">
 	<head>
 		
-		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/images/icons/codespot.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/icons/codespot.ico">
 	    <title><spring:message code="app.name" /></title>
 
 		<!-- BEGIN META -->
@@ -46,7 +44,7 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<br/>
-							<span class="text-lg text-bold text-primary"><img src='${contextPath}/resources/img/codespot-1.png'/></span>
+							<span class="text-lg text-bold text-primary"><img src='${contextPath}/resources/img/icons/codespot.png'/></span>
 							<br/><br/>
 							<form class="form floating-label" action="${contextPath}/login" method="post"" accept-charset="utf-8">
 							    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

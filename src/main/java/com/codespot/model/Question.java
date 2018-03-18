@@ -32,6 +32,9 @@ public class Question implements Serializable {
 	@Column(name="question_description")
 	private String questionDescription;
 	
+	@Column(name="question_short_description")
+	private String questionShortDescription;
+	
 	@Column(name="question_tags")
 	private String questionTags;
 	
@@ -121,6 +124,14 @@ public class Question implements Serializable {
 
 	public void setQuestionDescription(String questionDescription) {
 		this.questionDescription = questionDescription;
+	}
+
+	public String getQuestionShortDescription() {
+		return questionShortDescription;
+	}
+
+	public void setQuestionShortDescription(String questionShortDescription) {
+		this.questionShortDescription = questionShortDescription;
 	}
 
 	public Timestamp getCreateTimestamp() {
