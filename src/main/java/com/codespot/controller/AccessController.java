@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -35,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codespot.helper.SessionIdentifierGenerator;
+import com.codespot.model.ActiveUserStore;
 import com.codespot.model.Question;
 import com.codespot.model.User;
 import com.codespot.service.IQuestionService;
@@ -60,11 +62,23 @@ public class AccessController {
 
 	ObjectError error;
 	FieldError fieldError;
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
+	
+	@Autowired
+    ActiveUserStore activeUserStore;
 
 	@GET
 	@RequestMapping({ "/"})
 	public ModelAndView defaultHome(final Model model, final Locale locale,final RedirectAttributes redirectAttributes,
 			HttpSession argHttpSession, @RequestParam(value="pageNo", required=false) Integer pageNo) {
+		
+		List<String> activeUsersList = new ArrayList<String>();
+		for (String userName: activeUserStore.getUsers()) {
+		    	activeUsersList.add(userName);
+		}
+		model.addAttribute("activeUsersList", activeUsersList);
 		return new ModelAndView("redirect:/questions");
 	}
 	
@@ -73,10 +87,12 @@ public class AccessController {
 	public ModelAndView questionHome(final Model model, final Locale locale,final RedirectAttributes redirectAttributes,
 			HttpSession argHttpSession, @RequestParam(value="sd", required=false) String sd, @RequestParam(value="pageNo", required=false) Integer pageNo) {
 		
-		Sort.Direction sortDirection = CodespotConstants.Sort_Order_DESC;
+		List<String> activeUsersList = new ArrayList<String>();
+		for (String userName: activeUserStore.getUsers()) {
+		    	activeUsersList.add(userName);
+		}
 		
 		if(sd==null)
-//			so = CodespotConstants.Sort_Order_ASC;
 			sd = CodespotConstants.SortDirection.ASC.name();
 		
 		if(sd.equals(CodespotConstants.SortDirection.ASC.name())){

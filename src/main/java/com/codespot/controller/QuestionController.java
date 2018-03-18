@@ -12,15 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.io.FileUtils;
+import com.codespot.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,24 +27,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
-import com.codespot.helper.SessionIdentifierGenerator;
 import com.codespot.model.Question;
 import com.codespot.model.User;
 import com.codespot.service.IQuestionService;
 import com.codespot.service.IUserService;
 
-import org.apache.commons.fileupload.FileItem; 
-import org.apache.commons.io.FileUtils; 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.util.HtmlUtils;
-
-//import com.codespot.util.FileUtils;
+//import freemarker.template.utility.StringUtil;
 
 @RestController
 @RequestMapping("/questions")
@@ -56,7 +46,11 @@ public class QuestionController {
 	@Value("${ldap.enabled:false}") 
 	private boolean isLdapConfigured; 
     @Value("${tempLock.timeout:0}") 
-    private int templockTimeout; 
+    private int templockTimeout;
+    
+    @Value("${app.root.dir}") 
+    private String app_root_dir;
+    
 	
 	@Autowired private IUserService userService;
 	@Autowired private IQuestionService questionService;
@@ -105,7 +99,7 @@ public class QuestionController {
 		Question savedQuestion = questionService.create(question);
 		
 		//String rootDir = servletContext.getRealPath(request.getContextPath());
-		String rootDir = "C:/codespot_";
+		String rootDir = app_root_dir;
 		if(savedQuestion!=null){
 			File dir = new File(rootDir+"/"+userInContext.getUserName()+"/"+savedQuestion.getQuestionId());
 			if(dir.mkdirs()){
@@ -132,7 +126,7 @@ public class QuestionController {
 			HttpSession argHttpSession, HttpServletRequest request, HttpServletResponse response,
 			final RedirectAttributes redirectAttributes) throws Exception {
 		Question questionFetched = questionService.findOne(questionId);
-		String questionTitle = com.codespot.util.StringUtils.replace(questionFetched.getQuestionTitle().trim(), " ", "-");
+		String questionTitle = StringUtils.replace(questionFetched.getQuestionTitle().trim(), " ", "-");
 		redirectAttributes.addFlashAttribute("questionFetched", questionFetched);
 		return new ModelAndView("redirect:/questions/" + questionId + "/" + questionTitle);
 	}
@@ -159,8 +153,19 @@ public class QuestionController {
 		}
 		
 		if (question != null) {
+			String content = null;
+			File file = null;
 			String questionFilePath = question.getQuestionFilePath();
-			String content = FileUtils.readFileToString(new File(questionFilePath), "UTF8");
+			if(!StringUtils.isEmpty(questionFilePath)){
+				file = new File(questionFilePath);
+				if(!file.exists()){
+					logger.error("File not exists : "+file.getAbsolutePath());
+				}else{
+					content = FileUtils.readFileToString(file, "UTF8");
+				}
+			}else{
+				logger.error("File path is null.");
+			}
 			question.setQuestionDescription(content);
 		}
 		

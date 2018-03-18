@@ -80,16 +80,30 @@
 												<div class="col-md-8">
 													
 													<div class="row">
-														<div class="col-md-8">
+														<div class="col-md-10">
 															<div class="form-group">
 																<form:input type="text" path="questionTitle" class="form-control" id="title" name="title" placeholder="What's your programming question ? Be specific.."></form:input>
 																<label for="title" class="primary-dark">Title</label>
 															</div>
 														</div>
 													</div>
-													
 													<div class="row">
-														<div class="col-md-8">
+														<div class="col-md-10">
+															<div class="form-group">
+																<form:textarea type="text" path="questionShortDescription" class="form-control" id="title" name="title" placeholder="Short description to be appeared on listing..." maxlength="120"></form:textarea>
+																<label for="title" class="primary-dark">Short Description</label>
+															</div>
+																<p class="form-text text-muted has-warning">
+																  Max 120 characters
+																</p>
+														</div>
+													</div>
+													
+												</div>
+												
+												<div class="col-md-4">
+													<div class="row">
+														<div class="col-md-10">
 															<div class="form-group">
 																<form:select path="questionTags" class="form-control select2-list" data-placeholder="Select tags" multiple="multiple">
 																	<option value="java">Java</option>
@@ -103,14 +117,14 @@
 																	<option value="javascript">Javascript</option>
 																	<option value="angular">Angular</option>
 																	<option value="nodejs">Node.js</option>
-																	<option value="reactjs">React.js</option>
+																	<option value="xxxxxx">xxxxx</option>
 																	
 																</form:select>
 																<label>Tags</label>
 															</div>
 														</div><!--end .col -->
-													</div><!--end .row -->
-												</div><!--end .col -->
+													</div>
+												</div>
 											</div><!--end .row -->
 										</div><!--end .card-body -->
 

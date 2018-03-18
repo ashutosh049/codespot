@@ -3,6 +3,7 @@ package com.codespot.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -34,10 +37,13 @@ public class CodespotWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 	//	CodespotUserDetailsService codespotUserDetailsService;
 	
 	@Autowired
-	CodespotAuthenticationSuccessHandler successHandler;
+	CodespotAuthenticationSuccessHandler authenticationSuccessHandler;
 	
 	@Autowired
-	CodespotAuthenticationFailureHandler failureHandler;
+	CodespotLogoutSuccessHandler codespotLogoutSuccessHandler;
+	
+	@Autowired
+	CodespotAuthenticationFailureHandler authenticationFailureHandler;
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -57,15 +63,16 @@ public class CodespotWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 				.antMatchers("/resources/**", "resources","/unauth*").permitAll()
 //				.antMatchers("/questions*").hasAuthority("ADMIN")
 //				.antMatchers("/tables*").hasRole("ADMIN")
-				.antMatchers("/questions/ask","/questions/create","/questionComment/**").hasRole("USER")
+				.antMatchers("/questions/ask","/questions/create","/questionComment/**","/searchusers/**").hasRole("USER")
 				//.anyRequest().authenticated()
+				.antMatchers("/invalidSession*","/session-expired*").anonymous()
 				.anyRequest().permitAll()
 			.and()
 				.formLogin()
 					.loginPage("/login")
-					.successHandler(successHandler)
+					.successHandler(authenticationSuccessHandler)
 					.failureUrl("/login?failed=login-error")
-					.failureHandler(failureHandler)
+					.failureHandler(authenticationFailureHandler)
 					.usernameParameter("userName")
 					.passwordParameter("userPassword")
 					.permitAll()
@@ -75,11 +82,17 @@ public class CodespotWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 				.logout()
 					.logoutUrl("/logout")
 					.logoutSuccessUrl("/login?logout=success")
+					.logoutSuccessHandler(codespotLogoutSuccessHandler)
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
 					.clearAuthentication(true)	 
 			.and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).invalidSessionUrl("/")
+				.sessionManagement()
+					.maximumSessions(1).sessionRegistry(sessionRegistry())
+					.expiredUrl("/session-expired")	
+				.and().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+					.invalidSessionUrl("/")
+					.sessionFixation().none()
 //			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/")
 			.and()
 				.exceptionHandling().accessDeniedHandler(accessDeniedHandler)
@@ -97,10 +110,10 @@ public class CodespotWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
 			.portMapper()
 				.http(8080).mapsTo(8443)
 				.http(80).mapsTo(443);*/
-		http
+		/*http
 			.sessionManagement()
-				.maximumSessions(1)
-				.expiredUrl("/");
+				.maximumSessions(1).sessionRegistry(sessionRegistry())
+				.expiredUrl("/session-expired");*/
 	        
 	
 	}
@@ -133,17 +146,19 @@ public class CodespotWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
     public CodespotPasswordAuthenticationFilter usernamePasswordAuthenticationFilter() throws Exception { 
 		CodespotPasswordAuthenticationFilter loginDecisionFilter = new CodespotPasswordAuthenticationFilter(); 
         loginDecisionFilter.setAuthenticationManager(authenticationManagerBean()); 
-        loginDecisionFilter.setAuthenticationSuccessHandler(successHandler); 
-        loginDecisionFilter.setAuthenticationFailureHandler(failureHandler); 
+        loginDecisionFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler); 
+        loginDecisionFilter.setAuthenticationFailureHandler(authenticationFailureHandler); 
         return loginDecisionFilter; 
     }
-	
-	/**
-	 * enabling the concurrent session-control support
-	 */
+
 	@Bean
-	public HttpSessionEventPublisher httpSessionEventPublisher() {
-		return new HttpSessionEventPublisher();
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
+	}
+
+	@Bean
+	public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+		return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
 	}
 	
 }

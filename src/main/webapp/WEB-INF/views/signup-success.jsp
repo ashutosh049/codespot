@@ -9,7 +9,7 @@
 <html lang="en">
 	<head>
 		
-		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/images/icons/codespot.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/icons/codespot.ico">
 	    <title><spring:message code="app.name" /></title>
 
 		<!-- BEGIN META -->
@@ -50,14 +50,14 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-12">
-								<c:if test="${user.userName != null && user.userName!='' && user.userName.length > 0}">
+								<c:if test="${not empty user.userName}">
 									<h3 class="text-primary">Congratulations!</h3>
 								</c:if>
 							</div>
 							<div class="col-lg-12">
 								<article class="margin-bottom-xxl">
 								<c:choose>
-									<c:when test="${user.userName != null && user.userName!='' && user.length > 0}">
+									<c:when test="${not empty user.userName}">
 										<p class="text-lg">
 											Dear <label class="text-success">${user.userName}</label>, You have been successfully registered with Codespot.<br/>
 											To complete the signup process you have to verify you email account. We have sent you a verification email.

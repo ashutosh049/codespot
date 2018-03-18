@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/images/icons/codespot.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/icons/codespot.ico">
 	    <title><spring:message code="app.name" /></title>
 
 
@@ -30,18 +30,16 @@
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/css/theme-4/libs/bootstrap-multiselect/bootstrap-multiselect.css?1419109895" />
 		<link type="text/css" rel="stylesheet" href="${contextPath}/resources/animsition/css/animsition.min.css" />
 		<!-- END STYLESHEETS -->
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-		<script type="text/javascript" src="${contextPath}/resources/js/libs/utils/html5shiv.js?1403934957"></script>
-		<script type="text/javascript" src="${contextPath}/resources/js/libs/utils/respond.min.js?1403934956"></script>
-		<![endif]-->
 		
 <style type="text/css">
 .header-nav>li>a.codespot-btn-signup:hover, .header-nav>li>a.codespot-btn-signup:focus
 	{
 	text-decoration: none;
 	background-color: #009935;
+}
+
+.btn-xs {
+    font-size: 10px;
 }
 
 .searchBarOn {
@@ -70,7 +68,7 @@
 
 			<!-- BEGIN OFFCANVAS LEFT -->
 			<div class="offcanvas">
-			</div><!--end .offcanvas-->
+			</div>
 			<!-- END OFFCANVAS LEFT -->
 
 			<!-- BEGIN CONTENT-->
@@ -120,24 +118,30 @@
 												<div class="list-results list-results-underlined">
 													<c:forEach items="${questionList}" var="questionItr">
 														<div class="col-xs-12" style="padding-left:10px; padding-right:10px;">
-															<p class="margin-bottom-xxl">
-																<a class="text-medium text-lg text-primary" href="${contextPath}/questions/${questionItr.questionId}">${questionItr.questionTitle}</a><br />
-<%-- 																<span class="opacity-75">Asked By <a href="#">${questionItr.user.userName}</a></span> --%>
-															</p>
-															<div class="contain-xs pull-left">
-																${questionItr.questionShortDescription}
-<!-- 																 Page of data from PagingAndSortingRepository. You can call method like repo.findAll(new PageRequest(0,30)) what means you request for first page of data which contains 30 entities at most. Assuming that there are only 10 entities in database you receive a Page where size is 30 and numberOfElements is 10 -->
-																<div class="list-tags">
-																	<a class="btn btn-xs btn-default">java</a> 
-																	<a class="btn btn-xs btn-default">Spring</a> 
-																	<a class="btn btn-xs btn-default">CSS3</a> 
-																	<a class="btn btn-xs btn-default">jQuery</a>
+															<div class="col-xs-8">
+																<p class="" style="margin-bottom: -2px;">
+																	<a class="text-medium text-lg text-primary"
+																		href="${contextPath}/questions/${questionItr.questionId}">${questionItr.questionTitle}</a>
+																</p>
+																<div class="contain-xs pull-left text-default-light">
+																	${questionItr.questionShortDescription}
+																	<div class="list-tags fa-sm"
+																		style="margin-top: 13px; margin-bottom: -18px;">
+																		<a class="btn btn-xs btn-default">java</a> <a
+																			class="btn btn-xs btn-default">Spring</a> <a
+																			class="btn btn-xs btn-default">CSS3</a> <a
+																			class="btn btn-xs btn-default">jQuery</a>
+																	</div>
 																</div>
 															</div>
-															<span class="pull-right text-default-light createTimestamps" id="" timestamp="${questionItr.createTimestamp}">${questionItr.createTimestamp}</span>
+															<div class="col-xs-4">
+																<p>
+																	 <span class="pull-right createTimestamps" timestamp="${questionItr.createTimestamp}">${questionItr.createTimestamp}</span>
+																	 <br /><a class="pull-right" style="color:#5c489c;" href="../../html/mail/inbox.html">${questionItr.user.userName}</a>
+																</p>
+															</div>
 														</div>
 													</c:forEach>
-													<!--end .col -->
 												</div>
 												<!--end .list-results -->
 												<!-- END RESULTS LIST -->
@@ -162,8 +166,7 @@
 																	<li><a href="${prevUrl}">&lt;</a></li>
 																</c:otherwise>
 															</c:choose>
-															<c:forEach var="i" begin="${beginIndex}"
-																end="${endIndex}">
+															<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
 																<c:url var="pageUrl" value="/questions?pageNo=${i}" />
 																<c:choose>
 																	<c:when test="${i == currentIndex}">
@@ -236,12 +239,12 @@
 								<h3 class="text-light">Archives</h3>
 								<ul class="nav nav-pills nav-stacked nav-transparent">
 									<li><a href="#"><span class="badge pull-right">42</span>Design</a></li>
-									<li><a href="#"><span class="badge pull-right">56</span>January 2014</a></li>
-									<li><a href="#"><span class="badge pull-right">32</span>December 2013</a></li>
-									<li><a href="#"><span class="badge pull-right">19</span>November 2013</a></li>
-									<li><a href="#"><span class="badge pull-right">22</span>October 2013</a></li>
-									<li><a href="#"><span class="badge pull-right">14</span>September 2013</a></li>
-									<li><a href="#"><span class="badge pull-right">5</span>August 2013</a></li>
+									<li><a href="#"><span class="badge pull-right">56</span>Javascript</a></li>
+									<li><a href="#"><span class="badge pull-right">32</span>Java</a></li>
+									<li><a href="#"><span class="badge pull-right">19</span>C#</a></li>
+									<li><a href="#"><span class="badge pull-right">22</span>Php</a></li>
+									<li><a href="#"><span class="badge pull-right">14</span>Android</a></li>
+									<li><a href="#"><span class="badge pull-right">5</span>ruby-on-rails</a></li>
 								</ul>
 								<h3 class="text-light">Elsewhere</h3>
 								<ul class="nav nav-pills nav-stacked nav-transparent">
@@ -262,246 +265,7 @@
 			<!-- END CONTENT -->
 
 			<!-- BEGIN OFFCANVAS RIGHT -->
-			<div class="offcanvas">
-
-				<!-- BEGIN OFFCANVAS SEARCH -->
-				<div id="offcanvas-search" class="offcanvas-pane width-8">
-					<div class="offcanvas-head">
-						<header class="text-primary">Search</header>
-						<div class="offcanvas-tools">
-							<a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
-								<i class="md md-close"></i>
-							</a>
-						</div>
-					</div>
-					<div class="offcanvas-body no-padding">
-						<ul class="list ">
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>A</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar4.jpg?1404026791" alt="" />
-									</div>
-									<div class="tile-text">
-										Alex Nelson
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar9.jpg?1404026744" alt="" />
-									</div>
-									<div class="tile-text">
-										Ann Laurens
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>J</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar2.jpg?1404026449" alt="" />
-									</div>
-									<div class="tile-text">
-										Jessica Cruise
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar8.jpg?1404026729" alt="" />
-									</div>
-									<div class="tile-text">
-										Jim Peters
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>M</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar5.jpg?1404026513" alt="" />
-									</div>
-									<div class="tile-text">
-										Mabel Logan
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar11.jpg?1404026774" alt="" />
-									</div>
-									<div class="tile-text">
-										Mary Peterson
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar3.jpg?1404026799" alt="" />
-									</div>
-									<div class="tile-text">
-										Mike Alba
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>N</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar6.jpg?1404026572" alt="" />
-									</div>
-									<div class="tile-text">
-										Nathan Peterson
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>P</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar7.jpg?1404026721" alt="" />
-									</div>
-									<div class="tile-text">
-										Philip Ericsson
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-							<li class="tile divider-full-bleed">
-								<div class="tile-content">
-									<div class="tile-text"><strong>S</strong></div>
-								</div>
-							</li>
-							<li class="tile">
-								<a class="tile-content ink-reaction" href="#offcanvas-chat" data-toggle="offcanvas" data-backdrop="false">
-									<div class="tile-icon">
-										<img src="${contextPath}/resources/img/avatar10.jpg?1404026762" alt="" />
-									</div>
-									<div class="tile-text">
-										Samuel Parsons
-										<small>123-123-3210</small>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div><!--end .offcanvas-body -->
-				</div><!--end .offcanvas-pane -->
-				<!-- END OFFCANVAS SEARCH -->
-
-				<!-- BEGIN OFFCANVAS CHAT -->
-				<div id="offcanvas-chat" class="offcanvas-pane style-default-light width-12">
-					<div class="offcanvas-head style-default-bright">
-						<header class="text-primary">Chat with Ann Laurens</header>
-						<div class="offcanvas-tools">
-							<a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
-								<i class="md md-close"></i>
-							</a>
-							<a class="btn btn-icon-toggle btn-default-light pull-right" href="#offcanvas-search" data-toggle="offcanvas" data-backdrop="false">
-								<i class="md md-arrow-back"></i>
-							</a>
-						</div>
-						<form class="form">
-							<div class="form-group floating-label">
-								<textarea name="sidebarChatMessage" id="sidebarChatMessage" class="form-control autosize" rows="1"></textarea>
-								<label for="sidebarChatMessage">Leave a message</label>
-							</div>
-						</form>
-					</div>
-					<div class="offcanvas-body">
-						<ul class="list-chats">
-							<li>
-								<div class="chat">
-									<div class="chat-avatar"><img class="img-circle" src="${contextPath}/resources/img/avatar1.jpg?1403934956" alt="" /></div>
-									<div class="chat-body">
-										Yes, it is indeed very beautiful.
-										<small>10:03 pm</small>
-									</div>
-								</div><!--end .chat -->
-							</li>
-							<li class="chat-left">
-								<div class="chat">
-									<div class="chat-avatar"><img class="img-circle" src="${contextPath}/resources/img/avatar9.jpg?1404026744" alt="" /></div>
-									<div class="chat-body">
-										Did you see the changes?
-										<small>10:02 pm</small>
-									</div>
-								</div><!--end .chat -->
-							</li>
-							<li>
-								<div class="chat">
-									<div class="chat-avatar"><img class="img-circle" src="${contextPath}/resources/img/avatar1.jpg?1403934956" alt="" /></div>
-									<div class="chat-body">
-										I just arrived at work, it was quite busy.
-										<small>06:44pm</small>
-									</div>
-									<div class="chat-body">
-										I will take look in a minute.
-										<small>06:45pm</small>
-									</div>
-								</div><!--end .chat -->
-							</li>
-							<li class="chat-left">
-								<div class="chat">
-									<div class="chat-avatar"><img class="img-circle" src="${contextPath}/resources/img/avatar9.jpg?1404026744" alt="" /></div>
-									<div class="chat-body">
-										The colors are much better now.
-									</div>
-									<div class="chat-body">
-										The colors are brighter than before.
-										I have already sent an example.
-										This will make it look sharper.
-										<small>Mon</small>
-									</div>
-								</div><!--end .chat -->
-							</li>
-							<li>
-								<div class="chat">
-									<div class="chat-avatar"><img class="img-circle" src="${contextPath}/resources/img/avatar1.jpg?1403934956" alt="" /></div>
-									<div class="chat-body">
-										Are the colors of the logo already adapted?
-										<small>Last week</small>
-									</div>
-								</div><!--end .chat -->
-							</li>
-						</ul>
-					</div><!--end .offcanvas-body -->
-				</div><!--end .offcanvas-pane -->
-				<!-- END OFFCANVAS CHAT -->
-
-			</div><!--end .offcanvas-->
+				<jsp:include page="contents/ChatUserList.jsp"/>
 			<!-- END OFFCANVAS RIGHT -->
 
 		</div><!--end #base-->
@@ -518,7 +282,7 @@
 		<script src="${contextPath}/resources/js/libs/bootstrap/bootstrap.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/spin.js/spin.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/autosize/jquery.autosize.min.js"></script>
-		<script src="${contextPath}/resources/js/core/moment.min.js"></script>\
+		<script src="${contextPath}/resources/js/core/moment.min.js"></script>
 		<script src="${contextPath}/resources/js/libs/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 		<script src="${contextPath}/resources/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
 		<script src="${contextPath}/resources/animsition/js/animsition.min.js"></script>

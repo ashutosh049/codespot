@@ -9,7 +9,7 @@
 <html lang="en">
 	<head>
 		
-		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/images/icons/codespot.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="${contextPath}/resources/img/icons/codespot.ico">
 	    <title><spring:message code="app.name" /></title>
 
 		<!-- BEGIN META -->

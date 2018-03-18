@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codespot.Exception.UserNotFound;
+import com.codespot.model.ContactType;
 import com.codespot.model.User;
 import com.codespot.service.IUserService;
 import com.codespot.util.MailSenderHelper;
@@ -36,6 +37,17 @@ public class ModuleControllerHelper {
 
 	private final Logger logger = LoggerFactory.getLogger(ModuleControllerHelper.class);
 
+	public static ContactType getContactType(String contactType) {
+		if (contactType.equals(ContactType.AllAddable.name())) {
+			return ContactType.AllAddable;
+		}else if (contactType.equals(ContactType.AllAddableSent.name())) {
+			return ContactType.AllAddableSent;
+		}else if (contactType.equals(ContactType.AllAdded.name())) {
+			return ContactType.AllAdded;
+		}
+		return null;
+	}
+	
 	public static boolean isValidPassword(String argPassword) {
 		Pattern pswNamePtrn = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,16})");
 		Matcher mtch = pswNamePtrn.matcher(argPassword);

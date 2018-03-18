@@ -43,22 +43,18 @@ public class User implements Serializable {
 	@NotBlank(message = "confirmPassword.")
 	private String confirmPassword;
 
-	//bi-directional many-to-one association to Comment
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private Set<Comment> comments;
 
-	//bi-directional many-to-one association to Question
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private Set<Question> questions;
 
-	//bi-directional many-to-one association to Reply
 	@JsonIgnore
 	@OneToMany(mappedBy="user")
 	private Set<Reply> replies;
 
-	//bi-directional many-to-many association to Role
 	@JsonIgnore
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(
@@ -71,6 +67,27 @@ public class User implements Serializable {
 			}
 		)
 	private Set<Role> roles;
+	
+/*	@JsonIgnore
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(
+		name="Friends"
+		, joinColumns={
+			@JoinColumn(name="user_id")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="frnd_id")
+			}
+		)
+	private Set<User> userfriends;
+*/
+	@JsonIgnore
+	@OneToMany(mappedBy="relationFrom",cascade={CascadeType.ALL})
+	private Set<Friends> userfriends;
+	
+	/*@JsonIgnore
+	@ManyToOne(mappedBy="relation_with",cascade={CascadeType.ALL})
+	private Set<Friends> relationWith;*/
 
 	public User() {
 	}
@@ -205,7 +222,15 @@ public class User implements Serializable {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
+
+	public Set<Friends> getUserfriends() {
+		return userfriends;
+	}
+
+	public void setUserfriends(Set<Friends> userfriends) {
+		this.userfriends = userfriends;
+	}
+
 	@Override
     public int hashCode() {
         final int prime = 31;
